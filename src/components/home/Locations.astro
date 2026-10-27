@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import { getUi, tLocalized } from '../../i18n/ui';
+import { localePath } from '../../utils/locale';
+import type { Locale } from '../../config/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const locations = (await getCollection('locations'))
+  .filter((l) => l.data.status === 'published')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="relative overflow-hidden bg-brand-deep py-20 text-white lg:py-28">
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_0%,rgba(224,86,253,0.22),transparent_45%),radial-gradient(circle_at_90%_80%,rgba(91,33,182,0.35),transparent_40%)]"
+    aria-hidden="true"
+  >
+  </div>
+  <Container class="relative">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        eyebrow="Centres"
+        title={ui.home.centersTitle}
+        lead={ui.home.centersLead}
+        tone="light"
+      />
+      <Button href={localePath(locale, 'centres')} variant="light">
+        {ui.common.viewAll}
+      </Button>
+    </div>
+
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        locations.map((location) => (
+          <a
+            href={localePath(locale, `centres/${location.data.slug}`)}
+            class="group reveal relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 transition hover:border-brand-glow/50 hover:bg-white/10"
+          >
+            {
+              location.data.image && (
+                <div class="relative aspect-[3/4] overflow-hidden">
+                  <img
+                    src={location.data.image}
+                    alt=""
+                    class="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-brand-deep via-brand-deep/55 to-transparent"
+                    aria-hidden="true"
+                  />
+                </div>
+              )
+            }
+            <div class:list={[location.data.image ? 'absolute inset-x-0 bottom-0 p-5' : 'p-5']}>
+              <p class="font-display text-xl font-semibold drop-shadow-[0_0_18px_rgba(224,86,253,0.45)]">
+                {location.data.city}
+              </p>
+              {
+                location.data.phone && (
+                  <p class="mt-1 text-sm font-medium text-brand-glow/95" dir="ltr">
+                    {location.data.phone}
+                  </p>
+                )
+              }
+              <p class="mt-2 line-clamp-2 text-sm text-white/75">
+                {tLocalized(location.data.summary, locale)}
+              </p>
+              <p class="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-highlight">
+                {location.data.verification === 'verified'
+                  ? ui.common.verified
+                  : ui.common.needsConfirmation}
+              </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </Container>
+</section>

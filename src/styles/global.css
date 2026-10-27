@@ -1,0 +1,143 @@
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans/wght.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "./tokens.css";
+
+@theme {
+  /* Ink / navy replaced by brand purple system from Instagram city stories */
+  --color-primary: #1e0a2e;
+  --color-primary-soft: #3c006b;
+  --color-accent: #c026d3;
+  --color-accent-hover: #a21caf;
+  --color-highlight: #e056fd;
+  --color-canvas: #f7f5fb;
+  --color-surface: #efe8f8;
+  --color-dark: #2e0854;
+  --color-muted: #6b5b7c;
+  --color-border: #ddd0eb;
+  --color-brand: #5b21b6;
+  --color-brand-deep: #1a0033;
+  --color-brand-glow: #e056fd;
+  --color-gold: #e4b64c;
+
+  --font-display: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 12px 40px rgb(26 0 51 / 0.12);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-canvas text-primary font-body antialiased;
+    font-feature-settings: "ss01" on, "kern" on;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight text-primary;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .bg-brand-gradient {
+    background:
+      radial-gradient(circle at 18% 12%, rgb(224 86 253 / 0.28), transparent 42%),
+      linear-gradient(165deg, #5b21b6 0%, #3c006b 42%, #1a0033 100%);
+  }
+
+  .glass-nav {
+    background: rgb(255 255 255 / 0.48);
+    border: 1px solid rgb(255 255 255 / 0.5);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.6) inset,
+      0 8px 32px rgb(26 0 51 / 0.12);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    backdrop-filter: saturate(180%) blur(24px);
+  }
+
+  .glass-nav.is-scrolled {
+    background: rgb(255 255 255 / 0.78);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.7) inset,
+      0 12px 40px rgb(26 0 51 / 0.16);
+  }
+
+  .pt-nav {
+    padding-top: 5.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .pt-nav {
+      padding-top: 6.25rem;
+    }
+  }
+
+  .glass-nav-panel {
+    background: rgb(255 255 255 / 0.78);
+    border-top: 1px solid rgb(255 255 255 / 0.45);
+    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    backdrop-filter: saturate(180%) blur(22px);
+  }
+
+  .glass-nav-dark {
+    background: rgb(255 255 255 / 0.1);
+    border: 1px solid rgb(255 255 255 / 0.18);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.12) inset,
+      0 8px 32px rgb(0 0 0 / 0.22);
+    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    backdrop-filter: saturate(180%) blur(22px);
+    color: white;
+  }
+
+  .glass-nav-dark.is-scrolled {
+    background: rgb(26 0 51 / 0.72);
+    border-color: rgb(255 255 255 / 0.22);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.1) inset,
+      0 12px 40px rgb(0 0 0 / 0.28);
+  }
+
+  .glass-nav-panel-dark {
+    background: rgb(26 0 51 / 0.72);
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    backdrop-filter: saturate(180%) blur(22px);
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "allemand-b1",
+  "level": "B1",
+  "order": 3,
+  "formats": ["presentiel", "distanciel"],
+  "title": {
+    "fr": "Allemand B1 — Intermédiaire"
+  },
+  "summary": {
+    "fr": "Niveau pivot pour les projets d’études, de mobilité ou d’intégration : s’exprimer avec aisance sur des sujets familiers."
+  },
+  "outcomes": {
+    "fr": [
+      "Comprendre les points essentiels d’un langage clair et standard",
+      "Se débrouiller dans la plupart des situations en voyage",
+      "Produire un discours simple et cohérent sur des sujets connus"
+    ]
+  },
+  "prerequisites": {
+    "fr": "Niveau A2 acquis ou test de placement Allemando."
+  },
+  "status": "published"
+}

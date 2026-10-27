@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Button from '../../components/ui/Button.astro';
+import { siteConfig, type Locale } from '../../config/site';
+import { isLocale, whatsappUrl, publishedLocalePaths } from '../../utils/locale'
+import { getUi } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return publishedLocalePaths();
+}
+
+const { locale: localeParam } = Astro.params;
+if (!localeParam || !isLocale(localeParam)) return Astro.redirect('/fr/');
+const locale = localeParam as Locale;
+const ui = getUi(locale);
+const wa = whatsappUrl(
+  siteConfig.contact.whatsappNumber,
+  siteConfig.contact.whatsappMessage,
+);
+
+const mailBody = encodeURIComponent(
+  [
+    "Bonjour Allemando,",
+    '',
+    "Je souhaite m'inscrire / m'informer sur une formation.",
+    '',
+    'Nom :',
+    'Ville / centre souhaité :',
+    'Niveau estimé (A1–C1) :',
+    'Téléphone :',
+    'Message :',
+  ].join('\n'),
+);
+---
+
+<BaseLayout
+  title={ui.nav.enroll}
+  description="Demandez une inscription ou une orientation pour les formations Allemando."
+  locale={locale}
+  path="inscription"
+>
+  <section class="bg-white py-16 lg:py-24 pt-nav">
+    <Container class="max-w-3xl">
+      <SectionHeading
+        eyebrow="Inscription"
+        title="Commencez votre parcours"
+        lead="Ce site est 100 % statique : aucune donnée n’est stockée sur nos serveurs. Choisissez le canal qui vous convient pour contacter l’institut."
+      />
+
+      <ol class="mt-12 space-y-6">
+        {
+          wa && (
+            <li class="border border-border p-6">
+              <p class="font-display text-lg font-semibold">1. WhatsApp</p>
+              <p class="mt-2 text-sm text-muted">
+                Message prérempli pour une réponse rapide de l’équipe.
+              </p>
+              <Button href={wa} class="mt-4" external>
+                Ouvrir WhatsApp
+              </Button>
+            </li>
+          )
+        }
+        <li class="border border-border p-6">
+          <p class="font-display text-lg font-semibold">
+            {wa ? '2' : '1'}. E-mail
+          </p>
+          <p class="mt-2 text-sm text-muted">
+            Envoyez votre demande avec ville, niveau estimé et coordonnées.
+          </p>
+          <Button
+            href={`mailto:${siteConfig.contact.email}?subject=${encodeURIComponent('Demande d’inscription Allemando')}&body=${mailBody}`}
+            variant="secondary"
+            class="mt-4"
+          >
+            Écrire à {siteConfig.contact.email}
+          </Button>
+        </li>
+        <li class="border border-border p-6">
+          <p class="font-display text-lg font-semibold">
+            {wa ? '3' : '2'}. Réseaux officiels
+          </p>
+          <p class="mt-2 text-sm text-muted">
+            Contactez la page Facebook ou LinkedIn de l’institut.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <Button href={siteConfig.social.facebook} variant="ghost" external>
+              Facebook
+            </Button>
+            <Button href={siteConfig.social.linkedin} variant="ghost" external>
+              LinkedIn
+            </Button>
+          </div>
+        </li>
+      </ol>
+    </Container>
+  </section>
+</BaseLayout>

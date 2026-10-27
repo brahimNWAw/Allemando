@@ -1,0 +1,120 @@
+---
+import Container from '../ui/Container.astro';
+import { getUi } from '../../i18n/ui';
+import { localePath } from '../../utils/locale';
+import type { Locale } from '../../config/site';
+import { siteConfig } from '../../config/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: ui.nav.programs,
+    links: [
+      { href: localePath(locale, 'formations/allemand-a1'), label: 'Allemand A1' },
+      { href: localePath(locale, 'formations/allemand-b1'), label: 'Allemand B1' },
+      { href: localePath(locale, 'formations/allemand-b2'), label: 'Allemand B2' },
+      { href: localePath(locale, 'formations'), label: ui.common.viewAll },
+    ],
+  },
+  {
+    title: ui.nav.centers,
+    links: [
+      { href: localePath(locale, 'centres/marrakech'), label: 'Marrakech' },
+      { href: localePath(locale, 'centres/ouarzazate'), label: 'Ouarzazate' },
+      { href: localePath(locale, 'centres/beni-mellal'), label: 'Beni Mellal' },
+      { href: localePath(locale, 'centres/agadir'), label: 'Agadir' },
+    ],
+  },
+  {
+    title: ui.nav.about,
+    links: [
+      { href: localePath(locale, 'a-propos'), label: ui.nav.about },
+      { href: localePath(locale, 'etudier-en-allemagne'), label: ui.nav.germany },
+      { href: localePath(locale, 'contact'), label: ui.nav.contact },
+      { href: localePath(locale, 'politique-confidentialite'), label: ui.footer.privacy },
+    ],
+  },
+];
+---
+
+<footer class="bg-primary text-white">
+  <Container class="py-16">
+    <div class="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
+      <div>
+        <div class="flex items-center gap-3">
+          <img
+            src="/images/brand/logo.jpg"
+            alt=""
+            width="48"
+            height="48"
+            class="h-12 w-12 rounded-md object-cover"
+          />
+          <div>
+            <p class="font-display text-xl font-bold">{siteConfig.name}</p>
+            <p class="text-sm uppercase tracking-[0.16em] text-white/60">
+              {ui.footer.tagline}
+            </p>
+          </div>
+        </div>
+        <p class="mt-5 max-w-sm text-sm leading-relaxed text-white/70">
+          {siteConfig.description}
+        </p>
+        <div class="mt-6 flex gap-4 text-sm font-medium">
+          <a
+            href={siteConfig.social.facebook}
+            class="text-white/75 hover:text-white"
+            target="_blank"
+            rel="noopener noreferrer">Facebook</a
+          >
+          <a
+            href={siteConfig.social.instagram}
+            class="text-white/75 hover:text-white"
+            target="_blank"
+            rel="noopener noreferrer">Instagram</a
+          >
+          <a
+            href={siteConfig.social.linkedin}
+            class="text-white/75 hover:text-white"
+            target="_blank"
+            rel="noopener noreferrer">LinkedIn</a
+          >
+        </div>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-3">
+        {
+          columns.map((column) => (
+            <div>
+              <p class="mb-4 font-display text-sm font-semibold uppercase tracking-[0.14em] text-highlight">
+                {column.title}
+              </p>
+              <ul class="space-y-3 text-sm text-white/75">
+                {column.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="hover:text-white">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-white/50 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {siteConfig.legalName}. {ui.footer.rights}</p>
+      <p class="text-white/40">allemando.ma</p>
+    </div>
+  </Container>
+</footer>

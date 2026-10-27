@@ -1,0 +1,22 @@
+/**
+ * Allemando brand palette — extracted from Instagram city stories
+ * (مراكش · أكادير · ورزازات · بني ملال) and logo accents.
+ */
+:root {
+  /* Core purple system */
+  --allemando-purple-950: #16002b;
+  --allemando-purple-900: #1a0033;
+  --allemando-purple-800: #2e0854;
+  --allemando-purple-700: #3c006b;
+  --allemando-purple-600: #5b21b6;
+  --allemando-purple-500: #7c3aed;
+  --allemando-magenta: #e056fd;
+  --allemando-magenta-soft: #f0abfc;
+  --allemando-gold: #e4b64c;
+  --allemando-red: #c82c37;
+  --allemando-canvas: #f7f5fb;
+  --allemando-surface: #efe8f8;
+  --allemando-ink: #1e0a2e;
+  --allemando-muted: #6b5b7c;
+  --allemando-border: #ddd0eb;
+}

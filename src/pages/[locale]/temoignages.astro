@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Button from '../../components/ui/Button.astro';
+import { siteConfig, type Locale } from '../../config/site';
+import { isLocale, localePath, publishedLocalePaths } from '../../utils/locale';
+import { getUi } from '../../i18n/ui';
+import { testimonials } from '../../config/testimonials';
+
+export function getStaticPaths() {
+  return publishedLocalePaths();
+}
+
+const { locale: localeParam } = Astro.params;
+if (!localeParam || !isLocale(localeParam)) return Astro.redirect('/fr/');
+const locale = localeParam as Locale;
+const ui = getUi(locale);
+---
+
+<BaseLayout
+  title={ui.nav.testimonials}
+  description="Témoignages et parcours Allemando — langue, culture et orientation."
+  locale={locale}
+  path="temoignages"
+>
+  <section class="bg-canvas py-16 pt-nav lg:py-24">
+    <Container>
+      <SectionHeading
+        title="Témoignages"
+        lead="Parcours publics partagés par Allemando (Instagram) et textes d’orientation. Les réussites individuelles sont citées sans inventer de citations personnelles."
+      />
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        {
+          testimonials.map((item) => (
+            <article class="overflow-hidden rounded-2xl border border-border bg-white">
+              {
+                item.image && (
+                  <img
+                    src={item.image}
+                    alt={`Allemando Student — ${item.author}`}
+                    class="aspect-[4/5] max-h-80 w-full object-cover object-top"
+                    loading="lazy"
+                  />
+                )
+              }
+              <div class="p-7">
+                <p class="font-display text-4xl font-bold text-accent">{item.number}</p>
+                <blockquote class="mt-4">
+                  <p class="text-lg font-medium leading-relaxed text-primary">
+                    “{item.quote}”
+                  </p>
+                  <footer class="mt-5 text-sm text-muted">
+                    <span class="font-semibold text-primary">{item.author}</span>
+                    <span class="mt-1 block">{item.role}</span>
+                  </footer>
+                </blockquote>
+                <div class="mt-6 flex flex-wrap gap-3">
+                  <Button href={localePath(locale, item.ctaPath)} variant="ghost">
+                    {item.ctaLabel}
+                  </Button>
+                  {
+                    item.sourceUrl && (
+                      <Button href={item.sourceUrl} variant="ghost" external>
+                        Voir sur Instagram
+                      </Button>
+                    )
+                  }
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="mt-10">
+        <Button href={localePath(locale, 'inscription')}>{ui.nav.enroll}</Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,23 @@
+{
+  "slug": "allemand-c1",
+  "level": "C1",
+  "order": 5,
+  "formats": ["presentiel", "distanciel"],
+  "title": {
+    "fr": "Allemand C1 — Maîtrise"
+  },
+  "summary": {
+    "fr": "Affiner une maîtrise fine de la langue pour les études universitaires et les environnements exigeants."
+  },
+  "outcomes": {
+    "fr": [
+      "Comprendre des textes longs et exigeants",
+      "S’exprimer spontanément et couramment sans trop chercher ses mots",
+      "Utiliser la langue de façon souple et efficace dans la vie sociale et professionnelle"
+    ]
+  },
+  "prerequisites": {
+    "fr": "Niveau B2 acquis ou test de placement Allemando."
+  },
+  "status": "published"
+}

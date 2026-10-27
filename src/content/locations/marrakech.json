@@ -1,0 +1,17 @@
+{
+  "slug": "marrakech",
+  "city": "Marrakech",
+  "order": 1,
+  "verification": "verified",
+  "address": "Marrakech — détails via le centre (voir Instagram / appel)",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Allemando+Institut+Marrakech",
+  "phone": "0721942157",
+  "image": "/images/cities/marrakech-story.jpg",
+  "summary": {
+    "fr": "Centre Allemando à Marrakech — formations d’allemand A1–C1 et orientation vers l’Allemagne."
+  },
+  "programsNote": {
+    "fr": "Cours en présentiel et à distance selon les sessions. Contactez le centre pour le test de niveau."
+  },
+  "status": "published"
+}

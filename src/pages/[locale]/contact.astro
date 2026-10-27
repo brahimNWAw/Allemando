@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Button from '../../components/ui/Button.astro';
+import { siteConfig, type Locale } from '../../config/site';
+import { isLocale, localePath, whatsappUrl, publishedLocalePaths } from '../../utils/locale'
+import { getUi } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return publishedLocalePaths();
+}
+
+const { locale: localeParam } = Astro.params;
+if (!localeParam || !isLocale(localeParam)) return Astro.redirect('/fr/');
+const locale = localeParam as Locale;
+const ui = getUi(locale);
+const wa = whatsappUrl(
+  siteConfig.contact.whatsappNumber,
+  siteConfig.contact.whatsappMessage,
+);
+---
+
+<BaseLayout
+  title={ui.contact.title}
+  description={ui.contact.lead}
+  locale={locale}
+  path="contact"
+>
+  <section class="bg-canvas py-16 lg:py-24 pt-nav">
+    <Container>
+      <SectionHeading title={ui.contact.title} lead={ui.contact.lead} />
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        <a
+          href={`mailto:${siteConfig.contact.email}`}
+          class="border border-border bg-white p-7 transition hover:shadow-soft"
+        >
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+            {ui.contact.viaEmail}
+          </p>
+          <p class="mt-3 font-display text-xl font-semibold">
+            {siteConfig.contact.email}
+          </p>
+        </a>
+        {
+          wa && (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="border border-border bg-white p-7 transition hover:shadow-soft"
+            >
+              <p class="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+                {ui.contact.viaWhatsApp}
+              </p>
+              <p class="mt-3 font-display text-xl font-semibold">
+                Message prérempli
+              </p>
+            </a>
+          )
+        }
+        <a
+          href={siteConfig.social.facebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border border-border bg-white p-7 transition hover:shadow-soft"
+        >
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+            {ui.contact.viaFacebook}
+          </p>
+          <p class="mt-3 font-display text-xl font-semibold">
+            @allemandoinstitut
+          </p>
+        </a>
+        <a
+          href={siteConfig.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border border-border bg-white p-7 transition hover:shadow-soft"
+        >
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-accent">
+            {ui.contact.viaLinkedIn}
+          </p>
+          <p class="mt-3 font-display text-xl font-semibold">
+            Allemando Deutsche Schule
+          </p>
+        </a>
+      </div>
+      <p class="mt-8 max-w-2xl text-sm text-muted">{ui.contact.note}</p>
+      <div class="mt-8">
+        <Button href={localePath(locale, 'centres')} variant="ghost">
+          {ui.nav.centers}
+        </Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,165 @@
+---
+import Container from '../ui/Container.astro';
+import { getUi } from '../../i18n/ui';
+import { localePath } from '../../utils/locale';
+import type { Locale } from '../../config/site';
+import { siteConfig } from '../../config/site';
+
+interface Props {
+  locale: Locale;
+  onDark?: boolean;
+}
+
+const { locale, onDark = false } = Astro.props;
+const ui = getUi(locale);
+
+const links = [
+  { href: localePath(locale), label: ui.nav.home },
+  { href: localePath(locale, 'a-propos'), label: ui.nav.about },
+  { href: localePath(locale, 'formations'), label: ui.nav.programs },
+  { href: localePath(locale, 'centres'), label: ui.nav.centers },
+  { href: localePath(locale, 'etudier-en-allemagne'), label: ui.nav.germany },
+  { href: localePath(locale, 'contact'), label: ui.nav.contact },
+];
+---
+
+<header
+  class="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4"
+  data-header
+  data-on-dark={onDark ? 'true' : 'false'}
+>
+  <Container class="pointer-events-auto">
+    <div
+      class:list={[
+        'overflow-hidden rounded-2xl transition-[background,box-shadow,color] duration-300',
+        onDark ? 'glass-nav-dark' : 'glass-nav',
+      ]}
+      data-glass-nav
+    >
+      <div class="flex h-14 items-center justify-between gap-3 px-3 sm:h-16 sm:px-4 lg:px-5">
+        <a
+          href={localePath(locale)}
+          class="flex min-w-0 items-center gap-2.5"
+          aria-label={siteConfig.name}
+        >
+          <img
+            src="/images/brand/logo.jpg"
+            alt=""
+            width="36"
+            height="36"
+            class="h-9 w-9 shrink-0 rounded-[10px] object-cover shadow-sm ring-1 ring-white/20"
+          />
+          <span
+            class:list={[
+              'truncate font-display text-[15px] font-bold tracking-tight sm:text-base',
+              onDark ? 'text-white' : 'text-primary',
+            ]}
+          >
+            {siteConfig.name}
+          </span>
+        </a>
+
+        <nav class="hidden items-center gap-0.5 xl:flex" aria-label="Principal">
+          {
+            links.map((link) => (
+              <a
+                href={link.href}
+                class:list={[
+                  'rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors duration-200',
+                  onDark
+                    ? 'text-white/75 hover:bg-white/10 hover:text-white'
+                    : 'text-primary/70 hover:bg-primary/5 hover:text-primary',
+                ]}
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a
+            href={localePath(locale, 'inscription')}
+            class="hidden items-center gap-1.5 rounded-full bg-gradient-to-r from-accent to-brand px-4 py-2 text-[13px] font-semibold text-white shadow-sm transition hover:brightness-110 sm:inline-flex"
+          >
+            {ui.nav.enroll}
+            <span aria-hidden="true">→</span>
+          </a>
+          <button
+            type="button"
+            class:list={[
+              'inline-flex h-9 w-9 items-center justify-center rounded-full transition xl:hidden',
+              onDark
+                ? 'bg-white/10 text-white hover:bg-white/15'
+                : 'bg-primary/5 text-primary hover:bg-primary/10',
+            ]}
+            data-menu-toggle
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            aria-label={ui.common.openMenu}
+          >
+            <span class="sr-only">{ui.common.openMenu}</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M5 8h14M5 12h14M5 16h14"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="mobile-nav"
+        class:list={[
+          'hidden xl:hidden',
+          onDark ? 'glass-nav-panel-dark' : 'glass-nav-panel',
+        ]}
+        data-mobile-nav
+      >
+        <div class="flex flex-col gap-0.5 px-2 pb-3 pt-1">
+          {
+            links.map((link) => (
+              <a
+                href={link.href}
+                class:list={[
+                  'rounded-xl px-3 py-2.5 text-[15px] font-medium transition',
+                  onDark
+                    ? 'text-white/85 hover:bg-white/10 hover:text-white'
+                    : 'text-primary/80 hover:bg-primary/5 hover:text-primary',
+                ]}
+              >
+                {link.label}
+              </a>
+            ))
+          }
+          <a
+            href={localePath(locale, 'inscription')}
+            class="mt-1 rounded-full bg-gradient-to-r from-accent to-brand px-4 py-2.5 text-center text-sm font-semibold text-white"
+          >
+            {ui.nav.enroll} →
+          </a>
+        </div>
+      </div>
+    </div>
+  </Container>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const panel = document.querySelector('[data-mobile-nav]');
+  const glass = document.querySelector('[data-glass-nav]');
+
+  toggle?.addEventListener('click', () => {
+    const open = panel?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  const onScroll = () => {
+    glass?.classList.toggle('is-scrolled', window.scrollY > 24);
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

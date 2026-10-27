@@ -1,0 +1,17 @@
+{
+  "slug": "ouarzazate",
+  "city": "Ouarzazate",
+  "order": 2,
+  "verification": "verified",
+  "address": "شارع محمد الخامس، رقم 12، حي تصومعيت — ورزازات",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Avenue+Mohammed+V+12+Tassoumaite+Ouarzazate",
+  "phone": "0602021490",
+  "image": "/images/cities/ouarzazate-story.jpg",
+  "summary": {
+    "fr": "Centre Allemando à Ouarzazate — Avenue Mohammed V, quartier Tassoumaite."
+  },
+  "programsNote": {
+    "fr": "Renseignez-vous sur les sessions disponibles et le format (présentiel / distanciel)."
+  },
+  "status": "published"
+}

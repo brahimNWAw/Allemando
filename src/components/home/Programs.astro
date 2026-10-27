@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import { getUi, tLocalized } from '../../i18n/ui';
+import { localePath } from '../../utils/locale';
+import type { Locale } from '../../config/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const courses = (await getCollection('courses'))
+  .filter((c) => c.data.status === 'published')
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="bg-canvas py-20 lg:py-28">
+  <Container>
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <SectionHeading
+        eyebrow="Formations"
+        title={ui.home.programsTitle}
+        lead={ui.home.programsLead}
+      />
+      <Button href={localePath(locale, 'formations')} variant="ghost">
+        {ui.common.viewAll}
+      </Button>
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      {
+        courses.map((course) => (
+          <a
+            href={localePath(locale, `formations/${course.data.slug}`)}
+            class="reveal group border border-border bg-white p-6 transition hover:border-primary/30 hover:shadow-soft"
+          >
+            <div class="flex items-center justify-between">
+              <span class="inline-flex h-10 min-w-10 items-center justify-center rounded-md bg-primary px-3 font-display text-sm font-bold text-white">
+                {course.data.level}
+              </span>
+              <span class="text-xs font-medium uppercase tracking-[0.14em] text-muted">
+                {course.data.formats.join(' · ')}
+              </span>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-semibold group-hover:text-accent">
+              {tLocalized(course.data.title, locale)}
+            </h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted">
+              {tLocalized(course.data.summary, locale)}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </Container>
+</section>

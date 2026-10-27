@@ -1,0 +1,23 @@
+{
+  "slug": "allemand-a2",
+  "level": "A2",
+  "order": 2,
+  "formats": ["presentiel", "distanciel"],
+  "title": {
+    "fr": "Allemand A2 — Élémentaire"
+  },
+  "summary": {
+    "fr": "Consolider les bases pour décrire son environnement, exprimer des besoins simples et participer à des échanges courts."
+  },
+  "outcomes": {
+    "fr": [
+      "Comprendre des phrases isolées liées à la vie quotidienne",
+      "Communiquer lors de tâches simples et habituelles",
+      "Décrire son parcours, son entourage et ses besoins immédiats"
+    ]
+  },
+  "prerequisites": {
+    "fr": "Niveau A1 acquis ou test de placement Allemando."
+  },
+  "status": "published"
+}

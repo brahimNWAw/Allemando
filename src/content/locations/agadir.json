@@ -1,0 +1,17 @@
+{
+  "slug": "agadir",
+  "city": "Agadir",
+  "order": 4,
+  "verification": "verified",
+  "address": "رقم 3، شقة 3، شارع مسعود الوفاوي، السلام — أكادير",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Rue+Massoud+El+Wafaoui+Essalam+Agadir",
+  "phone": "0649191343",
+  "image": "/images/cities/agadir-story.jpg",
+  "summary": {
+    "fr": "Centre Allemando à Agadir — quartier Essalam, formations d’allemand et accompagnement."
+  },
+  "programsNote": {
+    "fr": "Demandez les formations disponibles et le mode d’inscription auprès de l’équipe."
+  },
+  "status": "published"
+}

@@ -1,0 +1,263 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import { getUi } from '../../i18n/ui';
+import { localePath } from '../../utils/locale';
+import type { Locale } from '../../config/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+
+const features = [
+  {
+    label: "Formations d'allemand de qualité",
+    icon: 'book',
+  },
+  {
+    label: 'Accompagnement personnalisé',
+    icon: 'people',
+  },
+  {
+    label: 'Préparation complète de votre projet',
+    icon: 'grad',
+  },
+  {
+    label: 'Un pont solide vers l’Allemagne',
+    icon: 'bridge',
+  },
+];
+---
+
+<section
+  class="relative isolate min-h-svh overflow-hidden bg-brand-deep text-white"
+  data-flight-hero
+  aria-label="Allemando — partenaire pour votre avenir en Allemagne"
+>
+  <!-- Panorama fills the whole hero — light overlay only for text contrast -->
+  <div class="absolute inset-0 bg-brand-deep" aria-hidden="true">
+    <img
+      src="/images/hero/morocco-germany.jpg"
+      alt=""
+      width="1024"
+      height="576"
+      class="absolute inset-0 h-full w-full object-cover object-[center_42%]"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div
+      class="absolute inset-0 bg-[linear-gradient(105deg,rgba(22,0,43,0.55)_0%,rgba(22,0,43,0.22)_38%,rgba(22,0,43,0.08)_62%,rgba(22,0,43,0.28)_100%)]"
+    >
+    </div>
+  </div>
+
+  <!-- Plane scene — Palmarosa-style arc (JS: translate + rotate + scale) -->
+  <div
+    class="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
+    data-flight-scene
+    aria-hidden="true"
+  >
+    <div class="flight-plane" data-flight-plane>
+      <img
+        src="/images/hero/allemando-plane.png?v=5"
+        alt=""
+        width="320"
+        height="213"
+        class="flight-plane-img"
+        loading="eager"
+        draggable="false"
+      />
+    </div>
+  </div>
+
+  <Container class="relative z-[2] flex min-h-svh flex-col justify-center pb-36 pt-28 sm:pt-32 lg:pb-40 lg:pt-36">
+    <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-highlight/95">
+      {ui.home.heroEyebrow}
+    </p>
+    <h1 class="mt-4 max-w-xl font-display text-[2.1rem] font-bold leading-[1.12] tracking-tight sm:text-4xl lg:text-[3.1rem]">
+      <span class="block text-white">{ui.home.heroTitleBefore}</span>
+      <span class="mt-1 block bg-gradient-to-r from-highlight via-[#f0abfc] to-gold bg-clip-text text-transparent">
+        {ui.home.heroTitleAccent}
+      </span>
+    </h1>
+    <p class="mt-5 max-w-md text-base leading-relaxed text-white/85 sm:text-lg">
+      {ui.home.heroLead}
+    </p>
+
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <Button href={localePath(locale, 'formations')} size="lg">
+        {ui.home.heroSecondary} →
+      </Button>
+      <Button href={localePath(locale, 'inscription')} variant="light" size="lg">
+        {ui.home.heroPrimary}
+      </Button>
+    </div>
+
+    <p class="mt-7 flex items-center gap-2 text-sm text-white/75">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="text-highlight">
+        <path
+          d="M12 21s7-5.4 7-12a7 7 0 1 0-14 0c0 6.6 7 12 7 12Z"
+          stroke="currentColor"
+          stroke-width="1.6"
+        ></path>
+        <circle cx="12" cy="9" r="2.2" stroke="currentColor" stroke-width="1.6"></circle>
+      </svg>
+      {ui.home.heroCenters}
+    </p>
+  </Container>
+
+  <div class="absolute inset-x-0 bottom-0 z-[2] border-t border-white/10 bg-brand-deep/55 backdrop-blur-md">
+    <Container class="grid gap-4 py-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6 lg:py-5">
+      {
+        features.map((item) => (
+          <div class="flex items-center gap-3 text-sm text-white/85">
+            <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15">
+              {
+                item.icon === 'book' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5V5.5Z" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" stroke="currentColor" stroke-width="1.5" />
+                  </svg>
+                )
+              }
+              {
+                item.icon === 'people' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M3.5 19c.6-3 2.8-4.5 5.5-4.5S14.4 16 15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    <circle cx="17" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M16 14.5c2 .3 3.5 1.5 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                )
+              }
+              {
+                item.icon === 'grad' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m3 10 9-5 9 5-9 5-9-5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                    <path d="M7 12.5v4c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5v-4" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M21 10v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                )
+              }
+              {
+                item.icon === 'bridge' && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 18V8l8-3 8 3v10" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                    <path d="M4 12h16M8 12v6M12 12v6M16 12v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  </svg>
+                )
+              }
+            </span>
+            <span class="font-medium leading-snug">{item.label}</span>
+          </div>
+        ))
+      }
+    </Container>
+  </div>
+</section>
+
+<style>
+  .flight-plane {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: min(14vw, 6.25rem);
+    will-change: transform;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+  }
+
+  .flight-plane-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 640px) {
+    .flight-plane {
+      width: min(20vw, 5rem);
+    }
+  }
+</style>
+
+<script>
+  const scene = document.querySelector('[data-flight-scene]');
+  const plane = document.querySelector('[data-flight-plane]');
+  if (!scene || !(plane instanceof HTMLElement)) {
+    // no-op
+  } else if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    plane.style.opacity = '0';
+  } else {
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 2.2);
+    const clamp01 = (t: number) => Math.min(1, Math.max(0, t));
+
+    /**
+     * Land at Brandenburg Gate (selected screenshot): tip of the light trail,
+     * just above the gate. Hold a few moments, then hide 10s and loop.
+     */
+    const poseAt = (p: number, w: number, h: number) => {
+      const e = easeOut(clamp01(p));
+      // Morocco takeoff → Brandenburg Gate landing (hero cover crop)
+      const x0 = w * 0.1;
+      const y0 = h * 0.76;
+      const x1 = w * 0.54;
+      const y1 = h * 0.44;
+      const x = x0 + (x1 - x0) * e;
+      const lift = Math.sin(Math.PI * e) * h * 0.1;
+      const y = y0 + (y1 - y0) * e - lift;
+      // Nose-up climb → settle for landing at the gate
+      const rot = 20 + (8 - 20) * e;
+      const scale = 0.88 + 0.1 * e;
+      return { x, y, rot, scale };
+    };
+
+    let raf = 0;
+    let start = 0;
+    const FLIGHT_MS = 8000;
+    const HOLD_VISIBLE_MS = 3500;
+    const HIDE_MS = 10000;
+    const LOOP_MS = FLIGHT_MS + HOLD_VISIBLE_MS + HIDE_MS;
+
+    const apply = (x: number, y: number, rot: number, scale: number, opacity: number) => {
+      plane.style.transform = `translate(${x}px, ${y}px) translate(-50%, -70%) rotate(${rot}deg) scale(${scale})`;
+      plane.style.opacity = String(opacity);
+    };
+
+    const tick = (now: number) => {
+      if (!start) start = now;
+      const elapsed = (now - start) % LOOP_MS;
+      const w = scene.clientWidth;
+      const h = scene.clientHeight;
+
+      if (elapsed <= FLIGHT_MS) {
+        const p = elapsed / FLIGHT_MS;
+        const { x, y, rot, scale } = poseAt(p, w, h);
+        apply(x, y, rot, scale, 1);
+      } else if (elapsed <= FLIGHT_MS + HOLD_VISIBLE_MS) {
+        // Stop at Brandenburg Gate position
+        const { x, y, rot, scale } = poseAt(1, w, h);
+        apply(x, y, rot, scale, 1);
+      } else {
+        // Hidden for 10 seconds
+        const { x, y, rot, scale } = poseAt(1, w, h);
+        apply(x, y, rot, scale, 0);
+      }
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        cancelAnimationFrame(raf);
+        if (entry?.isIntersecting) {
+          start = 0;
+          raf = requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(scene);
+  }
+</script>

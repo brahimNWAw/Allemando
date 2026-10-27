@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/home/Hero.astro';
+import Programs from '../../components/home/Programs.astro';
+import WhyAllemando from '../../components/home/WhyAllemando.astro';
+import Locations from '../../components/home/Locations.astro';
+import FAQ from '../../components/home/FAQ.astro';
+import EnrollmentCTA from '../../components/home/EnrollmentCTA.astro';
+import { siteConfig, type Locale } from '../../config/site';
+import { isLocale, publishedLocalePaths } from '../../utils/locale'
+export function getStaticPaths() {
+  return publishedLocalePaths();
+}
+
+const { locale: localeParam } = Astro.params;
+if (!localeParam || !isLocale(localeParam)) {
+  return Astro.redirect('/fr/');
+}
+const locale = localeParam as Locale;
+---
+
+<BaseLayout
+  title={siteConfig.name}
+  description={siteConfig.description}
+  locale={locale}
+  navOnDark
+>
+  <Hero locale={locale} />
+  <Programs locale={locale} />
+  <WhyAllemando locale={locale} />
+  <Locations locale={locale} />
+  <FAQ locale={locale} />
+  <EnrollmentCTA locale={locale} />
+</BaseLayout>

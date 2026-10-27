@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Button from '../../components/ui/Button.astro';
+import { siteConfig, type Locale } from '../../config/site';
+import { isLocale, localePath, publishedLocalePaths } from '../../utils/locale'
+import { getUi } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return publishedLocalePaths();
+}
+
+const { locale: localeParam } = Astro.params;
+if (!localeParam || !isLocale(localeParam)) return Astro.redirect('/fr/');
+const locale = localeParam as Locale;
+const ui = getUi(locale);
+---
+
+<BaseLayout
+  title={ui.about.title}
+  description={ui.about.lead}
+  locale={locale}
+  path="a-propos"
+>
+  <section class="bg-primary py-16 text-white lg:py-20 pt-nav">
+    <Container>
+      <SectionHeading
+        eyebrow={siteConfig.tagline}
+        title={ui.about.title}
+        lead={ui.about.lead}
+        tone="light"
+      />
+    </Container>
+  </section>
+
+  <section class="bg-white py-16 lg:py-24">
+    <Container class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="space-y-5 text-base leading-relaxed text-muted">
+        <p>
+          Allemando est un institut de langue allemande au Maroc. Notre mission
+          s’articule autour de trois piliers : <strong class="text-primary">langue</strong>,
+          <strong class="text-primary">culture</strong> et
+          <strong class="text-primary">orientation</strong>.
+        </p>
+        <p>
+          Nous proposons des formations structurées du niveau A1 au niveau C1,
+          en présentiel et à distance, pour accompagner les étudiants et
+          professionnels qui préparent un projet lié à l’Allemagne.
+        </p>
+        <p>
+          Les informations publiées sur ce site s’appuient sur des sources
+          publiques et seront enrichies au fur et à mesure des validations
+          officielles de l’institut (adresses, équipe, horaires, tarifs).
+        </p>
+      </div>
+      <div class="border border-border bg-canvas p-8">
+        <h2 class="font-display text-2xl font-semibold">Ce que nous offrons</h2>
+        <ul class="mt-6 space-y-4 text-muted">
+          <li class="border-l-2 border-accent pl-4">Cours d’allemand A1–C1</li>
+          <li class="border-l-2 border-highlight pl-4">
+            Préparation aux examens selon les sessions
+          </li>
+          <li class="border-l-2 border-accent pl-4">
+            Orientation études et Ausbildung en Allemagne
+          </li>
+          <li class="border-l-2 border-highlight pl-4">
+            Accompagnement culturel et linguistique
+          </li>
+        </ul>
+        <div class="mt-8">
+          <Button href={localePath(locale, 'formations')}>
+            {ui.common.discoverPrograms}
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

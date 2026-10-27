@@ -1,0 +1,44 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Accordion from '../ui/Accordion.astro';
+import { getUi } from '../../i18n/ui';
+import type { Locale } from '../../config/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+
+const items = [
+  {
+    question: 'Quels niveaux proposez-vous ?',
+    answer:
+      'Allemando propose des formations d’allemand du niveau A1 au niveau C1, selon le Cadre européen commun de référence (CECRL), en présentiel et à distance.',
+  },
+  {
+    question: 'Comment s’inscrire ?',
+    answer:
+      'Contactez un centre via la page Inscription, WhatsApp, e-mail ou nos pages officielles. Un test de niveau peut être proposé pour vous orienter vers le parcours adapté.',
+  },
+  {
+    question: 'Aidez-vous pour les études en Allemagne ?',
+    answer:
+      'Oui, nous proposons une orientation sur les études, l’Ausbildung et la préparation aux examens. Les décisions de visa et d’admission restent du ressort des autorités et établissements concernés.',
+  },
+  {
+    question: 'Dans quelles villes êtes-vous présents ?',
+    answer:
+      'Nous communiquons actuellement sur Marrakech, Ouarzazate, Beni Mellal et Agadir. Certaines adresses publiques nécessitent encore une confirmation officielle.',
+  },
+];
+---
+
+<section class="bg-canvas py-20 lg:py-28">
+  <Container class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+    <SectionHeading eyebrow="FAQ" title={ui.home.faqTitle} />
+    <Accordion items={items} />
+  </Container>
+</section>

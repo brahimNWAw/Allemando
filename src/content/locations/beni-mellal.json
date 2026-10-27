@@ -1,0 +1,17 @@
+{
+  "slug": "beni-mellal",
+  "city": "Beni Mellal",
+  "order": 3,
+  "verification": "verified",
+  "address": "عمارة رقم 13، شارع الحسن الثاني — بني ملال",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=13+Avenue+Hassan+II+Beni+Mellal",
+  "phone": "0643117738",
+  "image": "/images/cities/beni-mellal-story.jpg",
+  "summary": {
+    "fr": "Centre Allemando à Beni Mellal, Avenue Hassan II. Formations d’allemand et orientation près de chez vous."
+  },
+  "programsNote": {
+    "fr": "Cours A1–C1 selon le calendrier du centre. Appelez ou écrivez pour le test de niveau."
+  },
+  "status": "published"
+}

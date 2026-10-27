@@ -1,0 +1,52 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { getUi } from '../../i18n/ui';
+import type { Locale } from '../../config/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+
+const points = [
+  {
+    title: 'Parcours structuré',
+    text: 'Des niveaux CECRL clairs, de A1 à C1, pour progresser avec méthode.',
+  },
+  {
+    title: 'Présentiel & distanciel',
+    text: 'Apprenez près de chez vous ou à distance selon votre rythme et votre ville.',
+  },
+  {
+    title: 'Orientation Allemagne',
+    text: 'Accompagnement pour les études, l’Ausbildung et la préparation aux examens — sans garanties de visa.',
+  },
+  {
+    title: 'Ancrage local',
+    text: 'Des centres au Maroc et une équipe proche des réalités des étudiants marocains.',
+  },
+];
+---
+
+<section class="bg-white py-20 lg:py-28">
+  <Container>
+    <SectionHeading
+      eyebrow="L'approche"
+      title={ui.home.trustTitle}
+      lead="Un institut pensé pour la langue, la culture et l’orientation — avec sérieux pédagogique et clarté."
+    />
+    <div class="mt-12 grid gap-8 md:grid-cols-2">
+      {
+        points.map((point) => (
+          <article class="reveal border-l-2 border-accent pl-5">
+            <h3 class="font-display text-xl font-semibold">{point.title}</h3>
+            <p class="mt-2 text-base leading-relaxed text-muted">{point.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</section>

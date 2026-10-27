@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import { siteConfig, type Locale } from '../../config/site';
+import { isLocale, publishedLocalePaths } from '../../utils/locale'
+
+export function getStaticPaths() {
+  return publishedLocalePaths();
+}
+
+const { locale: localeParam } = Astro.params;
+if (!localeParam || !isLocale(localeParam)) return Astro.redirect('/fr/');
+const locale = localeParam as Locale;
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Informations sur le traitement des données pour le site Allemando."
+  locale={locale}
+  path="politique-confidentialite"
+>
+  <section class="bg-white py-16 lg:py-24 pt-nav">
+    <Container class="prose-allemando max-w-3xl space-y-6 text-muted">
+      <h1 class="font-display text-4xl font-bold text-primary">
+        Politique de confidentialité
+      </h1>
+      <p>
+        Le site <strong class="text-primary">allemando.ma</strong> est un site
+        vitrine statique. Il ne dispose d’aucun formulaire serveur, base de
+        données ou espace de stockage de données personnelles sur notre
+        hébergement.
+      </p>
+      <h2 class="font-display text-2xl font-semibold text-primary">
+        Données que vous pouvez nous transmettre
+      </h2>
+      <p>
+        Lorsque vous nous contactez via e-mail, WhatsApp, Facebook ou LinkedIn,
+        les informations que vous choisissez d’envoyer sont traitées par ces
+        canaux et par l’équipe Allemando dans le but de répondre à votre
+        demande (orientation, inscription, information).
+      </p>
+      <h2 class="font-display text-2xl font-semibold text-primary">
+        Cadre légal
+      </h2>
+      <p>
+        Le traitement des données personnelles au Maroc est encadré notamment
+        par la loi 09-08. Pour toute demande relative à vos données, contactez
+        l’institut via les canaux officiels indiqués sur la page Contact.
+      </p>
+      <h2 class="font-display text-2xl font-semibold text-primary">
+        Cookies et analytics
+      </h2>
+      <p>
+        Aucun outil d’analytics n’est activé par défaut sur cette version du
+        site. Si un outil de mesure d’audience est ajouté ultérieurement, cette
+        page sera mise à jour et un mécanisme de consentement sera prévu le cas
+        échéant.
+      </p>
+    </Container>
+  </section>
+</BaseLayout>

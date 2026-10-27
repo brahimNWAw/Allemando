@@ -1,0 +1,23 @@
+{
+  "slug": "allemand-b2",
+  "level": "B2",
+  "order": 4,
+  "formats": ["presentiel", "distanciel"],
+  "title": {
+    "fr": "Allemand B2 — Avancé"
+  },
+  "summary": {
+    "fr": "Approfondir la compréhension et l’expression pour les études, l’Ausbildung et les contextes professionnels."
+  },
+  "outcomes": {
+    "fr": [
+      "Comprendre le contenu essentiel de textes complexes",
+      "Communiquer avec un degré de spontanéité et d’aisance",
+      "S’exprimer de façon claire et détaillée sur une gamme de sujets"
+    ]
+  },
+  "prerequisites": {
+    "fr": "Niveau B1 acquis ou test de placement Allemando."
+  },
+  "status": "published"
+}

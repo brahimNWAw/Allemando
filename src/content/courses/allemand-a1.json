@@ -1,0 +1,23 @@
+{
+  "slug": "allemand-a1",
+  "level": "A1",
+  "order": 1,
+  "formats": ["presentiel", "distanciel"],
+  "title": {
+    "fr": "Allemand A1 — Débutant"
+  },
+  "summary": {
+    "fr": "Premiers pas en allemand : se présenter, comprendre des expressions simples et communiquer dans des situations du quotidien."
+  },
+  "outcomes": {
+    "fr": [
+      "Comprendre et utiliser des expressions familières courantes",
+      "Se présenter et poser des questions simples",
+      "Interagir de façon simple si l’interlocuteur parle lentement"
+    ]
+  },
+  "prerequisites": {
+    "fr": "Aucun prérequis. Ouvert aux débutants complets."
+  },
+  "status": "published"
+}
