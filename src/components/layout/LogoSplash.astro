@@ -1,0 +1,299 @@
+---
+/**
+ * Professional splash: spotlights reveal an opaque logo on purple
+ * (black plate knocked out), hold 5s, then fade out.
+ */
+---
+
+<div
+  id="logo-splash"
+  class="logo-splash"
+  role="status"
+  aria-live="polite"
+  aria-label="Chargement Allemando"
+>
+  <div class="logo-splash__stage">
+    <canvas class="logo-splash__logo" aria-hidden="true"></canvas>
+    <img
+      class="logo-splash__fallback"
+      src="/images/brand/logo-full.jpg"
+      alt="Allemando — Langue · Culture · Orientation"
+      width="1024"
+      height="682"
+      decoding="async"
+      hidden
+    />
+    <div class="logo-splash__beam logo-splash__beam--a" aria-hidden="true"></div>
+    <div class="logo-splash__beam logo-splash__beam--b" aria-hidden="true"></div>
+    <div class="logo-splash__beam logo-splash__beam--c" aria-hidden="true"></div>
+  </div>
+</div>
+
+<style is:global>
+  html.splash-lock {
+    overflow: hidden;
+  }
+
+  html.splash-skip #logo-splash {
+    display: none !important;
+  }
+
+  .logo-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, #5b21b6 0%, transparent 55%),
+      radial-gradient(circle at 20% 80%, rgb(224 86 253 / 0.35), transparent 42%),
+      linear-gradient(165deg, #3c006b 0%, #2e0854 45%, #1e0a2e 100%);
+    transition: opacity 0.55s ease, visibility 0.55s ease;
+  }
+
+  .logo-splash.is-exiting {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .logo-splash__stage {
+    position: relative;
+    width: min(86vw, 440px);
+    aspect-ratio: 1024 / 682;
+  }
+
+  .logo-splash__logo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: scale(1.03);
+    -webkit-mask-image:
+      radial-gradient(
+        circle at var(--sx1, 28%) var(--sy1, 32%),
+        #fff 0%,
+        #fff var(--sr1, 0%),
+        transparent calc(var(--sr1, 0%) + 14%)
+      ),
+      radial-gradient(
+        circle at var(--sx2, 62%) var(--sy2, 28%),
+        #fff 0%,
+        #fff var(--sr2, 0%),
+        transparent calc(var(--sr2, 0%) + 14%)
+      ),
+      radial-gradient(
+        circle at var(--sx3, 50%) var(--sy3, 68%),
+        #fff 0%,
+        #fff var(--sr3, 0%),
+        transparent calc(var(--sr3, 0%) + 16%)
+      );
+    mask-image:
+      radial-gradient(
+        circle at var(--sx1, 28%) var(--sy1, 32%),
+        #fff 0%,
+        #fff var(--sr1, 0%),
+        transparent calc(var(--sr1, 0%) + 14%)
+      ),
+      radial-gradient(
+        circle at var(--sx2, 62%) var(--sy2, 28%),
+        #fff 0%,
+        #fff var(--sr2, 0%),
+        transparent calc(var(--sr2, 0%) + 14%)
+      ),
+      radial-gradient(
+        circle at var(--sx3, 50%) var(--sy3, 68%),
+        #fff 0%,
+        #fff var(--sr3, 0%),
+        transparent calc(var(--sr3, 0%) + 16%)
+      );
+    -webkit-mask-composite: source-over;
+    mask-composite: add;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    transition:
+      opacity 0.35s ease,
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .logo-splash.is-lit .logo-splash__logo {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .logo-splash.is-full .logo-splash__logo {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .logo-splash__beam {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: screen;
+    filter: blur(28px);
+    transform: translate(-50%, -50%) scale(0.2);
+    transition:
+      opacity 0.5s ease,
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .logo-splash__beam--a {
+    left: 28%;
+    top: 32%;
+    width: 42%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgb(224 86 253 / 0.45) 0%, transparent 70%);
+  }
+
+  .logo-splash__beam--b {
+    left: 62%;
+    top: 28%;
+    width: 38%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgb(168 85 247 / 0.4) 0%, transparent 70%);
+    transition-delay: 0.12s;
+  }
+
+  .logo-splash__beam--c {
+    left: 50%;
+    top: 68%;
+    width: 48%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgb(255 255 255 / 0.22) 0%, transparent 68%);
+    transition-delay: 0.22s;
+  }
+
+  .logo-splash.is-lit .logo-splash__beam {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .logo-splash.is-full .logo-splash__beam {
+    opacity: 0;
+    transition-duration: 0.45s;
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'allemando-splash-seen';
+  const REVEAL_MS = 1600;
+  const SETTLE_MS = 350;
+  const HOLD_MS = 5000;
+  const EXIT_MS = 550;
+
+  const splash = document.getElementById('logo-splash');
+
+  if (!splash || document.documentElement.classList.contains('splash-skip')) {
+    splash?.remove();
+  } else {
+    const canvas = splash.querySelector('.logo-splash__logo');
+    const stage = splash.querySelector('.logo-splash__stage');
+
+    const markSeen = () => {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, '1');
+      } catch {
+        /* ignore */
+      }
+    };
+
+    const finish = () => {
+      document.documentElement.classList.remove('splash-lock');
+      splash.remove();
+    };
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+    /** Draw logo with black plate removed — colors stay fully opaque. */
+    const prepareLogo = (img) => {
+      if (!(canvas instanceof HTMLCanvasElement) || !stage) return false;
+
+      const rect = stage.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.max(1, Math.round(rect.width));
+      const h = Math.max(1, Math.round(rect.height));
+
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return false;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+
+      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = frame.data;
+      for (let i = 0; i < data.length; i += 4) {
+        // Knock out near-black background only
+        if (data[i] + data[i + 1] + data[i + 2] < 40) {
+          data[i + 3] = 0;
+        }
+      }
+      ctx.putImageData(frame, 0, 0);
+      return true;
+    };
+
+    const runSpotlights = async () => {
+      if (!(canvas instanceof HTMLElement)) {
+        finish();
+        return;
+      }
+
+      splash.classList.add('is-lit');
+      const start = performance.now();
+
+      await new Promise((resolve) => {
+        const tick = (now) => {
+          const t = Math.min(1, (now - start) / REVEAL_MS);
+          const e = easeOutCubic(t);
+          const e2 = easeOutCubic(Math.max(0, (t - 0.08) / 0.92));
+          const e3 = easeOutCubic(Math.max(0, (t - 0.18) / 0.82));
+
+          canvas.style.setProperty('--sr1', `${4 + e * 58}%`);
+          canvas.style.setProperty('--sr2', `${3 + e2 * 52}%`);
+          canvas.style.setProperty('--sr3', `${2 + e3 * 62}%`);
+          canvas.style.setProperty('--sx1', `${28 + e * 4}%`);
+          canvas.style.setProperty('--sy1', `${32 + e * 2}%`);
+          canvas.style.setProperty('--sx2', `${66 - e2 * 6}%`);
+          canvas.style.setProperty('--sy2', `${26 + e2 * 6}%`);
+          canvas.style.setProperty('--sx3', `50%`);
+          canvas.style.setProperty('--sy3', `${72 - e3 * 6}%`);
+
+          if (t < 1) requestAnimationFrame(tick);
+          else resolve();
+        };
+        requestAnimationFrame(tick);
+      });
+
+      splash.classList.add('is-full');
+      await new Promise((r) => setTimeout(r, SETTLE_MS));
+      await new Promise((r) => setTimeout(r, HOLD_MS));
+      splash.classList.add('is-exiting');
+      markSeen();
+      setTimeout(finish, EXIT_MS);
+    };
+
+    const img = new Image();
+    img.decoding = 'async';
+    img.onload = () => {
+      if (!prepareLogo(img)) {
+        finish();
+        return;
+      }
+      requestAnimationFrame(() => {
+        runSpotlights();
+      });
+    };
+    img.onerror = () => finish();
+    img.src = '/images/brand/logo-full.jpg';
+  }
+</script>

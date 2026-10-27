@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 682" fill="none">
+  <!-- Allemando logo mark  vector reference for splash paint -->
+  <defs>
+    <linearGradient id="g-red" x1="300" y1="80" x2="380" y2="480" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff4d4d"/>
+      <stop offset="1" stop-color="#c41e26"/>
+    </linearGradient>
+    <linearGradient id="g-gold" x1="350" y1="70" x2="420" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffd84a"/>
+      <stop offset="1" stop-color="#e4a800"/>
+    </linearGradient>
+    <linearGradient id="g-purple" x1="500" y1="140" x2="680" y2="340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#5b21b6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Red page -->
+  <path
+    id="part-red"
+    fill="url(#g-red)"
+    d="M318 95c-6 55-10 130-4 210 4 55 14 110 28 155l38-14c-12-42-20-92-24-142-6-72-2-142 4-198z"/>
+
+  <!-- Gold page -->
+  <path
+    id="part-gold"
+    fill="url(#g-gold)"
+    d="M360 82c-5 58-8 138-2 220 4 52 12 100 24 140l36-12c-10-38-17-82-20-128-6-76-3-150 2-208z"/>
+
+  <!-- Dark inner page edge -->
+  <path
+    id="part-dark"
+    fill="#1a0a12"
+    d="M398 78c-3 55-4 130 0 205 3 48 9 92 18 128l28-10c-8-34-13-74-16-118-4-70-3-138 0-195z"/>
+
+  <!-- White sail -->
+  <path
+    id="part-sail"
+    fill="#ffffff"
+    d="M420 72c55-28 145-22 210 28 58 45 92 120 88 200-4 78-42 148-108 185-52 30-115 32-160 8-28-15-42-48-38-82 6-72 12-155 18-230 4-48 12-88 22-109 8-16 22-28 32-28z"/>
+
+  <!-- Cap diamond -->
+  <path
+    id="part-cap"
+    fill="url(#g-purple)"
+    d="M520 168l95-36 95 36-95 32z"/>
+
+  <!-- Cap pillar -->
+  <path
+    id="part-cap-pillar"
+    fill="url(#g-purple)"
+    d="M600 168v48c0 10-16 18-30 18s-30-8-30-18v-48z"/>
+
+  <!-- Cap tassel -->
+  <path
+    id="part-tassel"
+    fill="url(#g-purple)"
+    d="M520 168c-14 10-32 28-40 48l18 8c6-14 18-28 30-38z"/>
+
+  <!-- Ring around M -->
+  <path
+    id="part-ring"
+    fill="none"
+    stroke="url(#g-purple)"
+    stroke-width="18"
+    stroke-linecap="round"
+    d="M548 300c-22-48 8-100 72-108 64-8 108 32 98 84-10 52-88 72-170 24"/>
+
+  <!-- Letter M -->
+  <path
+    id="part-m"
+    fill="url(#g-purple)"
+    d="M545 318V228l65 72 65-72v90h-28V268l-37 42-37-42v50z"/>
+
+  <!-- Wordmark -->
+  <text
+    id="part-title"
+    x="512"
+    y="545"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Plus Jakarta Sans, Arial Black, Arial, sans-serif"
+    font-size="92"
+    font-weight="700"
+    letter-spacing="-2">Allemand</text>
+
+  <!-- Tagline -->
+  <text
+    id="part-tag"
+    x="512"
+    y="600"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="Inter, Arial, sans-serif"
+    font-size="28"
+    font-weight="500"
+    letter-spacing="6">Langue · Culture · Orientation</text>
+</svg>
